@@ -1,7 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Utilisateur
- * Date: 06/03/2019
- * Time: 13:37
- */
+rerequire_DIR_."/../vendor/autoload.php";
+use \Core\Request;
+
+$request = Request::createFromGlobals();
+
+var_dump($request);
+//var_dump affiche les informations d'une varaible//
+die();
