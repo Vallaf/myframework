@@ -5,16 +5,13 @@ use \Core\Router\Router;
 use \Core\Router\Route;
 $request = Request::createFromGlobals();
 $router = new Router($request);
-
-$router
-    ->addRoute(new Route("testsFoo", "/tests/foo", [], \App\Controller\TestsController::class, "foo"))
-    ->addRoute(new Route("testsBar", "/test/bar/:param", ["param" => "[\w]+"], \App\Controller\TestsController::class, "bar"));
 try {
+    $router
+        ->addRoute(new Route("testsFoo", "/tests/foo", [], \App\Controller\TestsController::class, "foo"))
+        ->addRoute(new Route("testsBar", "/tests/bar/:param", ["param" => "[\w]+"], \App\Controller\TestsController::class, "bar"))
+        ->addRoute(new Route("testsRedirection", "/tests/redirection/:param", ["param" => "[\w]+"], \App\Controller\TestsController::class, "redirection"));
     $route = $router->getRouteByRequest();
-    $route->call();
+    $route->call($request, $router);
 } catch (\Exception $e) {
     echo $e->getMessage();
 }
-//var_dump($request);
-//var_dump affiche les informations d'une variable//
-//die();

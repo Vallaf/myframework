@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
-
-
+use Core\Controller;
 class TestsController extends AppController
 {
     public function foo()
@@ -12,6 +11,8 @@ class TestsController extends AppController
     {
         echo $bar;
     }
-
-
+    // A vous d'implémeter la fonction !
+    public function redirection($args){
+    $this->redirect("testsBar",['param'=>$args]);
+    }
 }

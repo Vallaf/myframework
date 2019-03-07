@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use Core\Controller;
-class AppController
+class AppController extends Controller
 {
 
 }

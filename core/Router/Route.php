@@ -1,7 +1,6 @@
 <?php
 namespace Core\Router;
-
-
+use Core\Request;
 class Route
 {
     /**
@@ -44,14 +43,17 @@ class Route
         $this->controller = $controller;
         $this->action = $action;
     }
+
     /**
+     * @param Request $request
+     * @param Router $router
      * @return mixed
      */
-    public function call()
+    public function call(Request $request, Router $router)
     {
         $controller = $this->controller;
         // On instancie dynamiquement le contrôleur
-        $controller = new $controller();
+        $controller = new $controller($request, $router);
         // call_user_func_array permet d'appeler une méthode (ou une fonction, cf la doc) d'une classe et de lui passer des arguments
         return call_user_func_array([$controller, $this->action], $this->args);
     }
@@ -85,6 +87,18 @@ class Route
         }
         // Sinon on renvoie une regexp par défaut
         return '([^/]+)';
+    }
+    /**
+     * @param $args
+     * @return string
+     */
+    public function generateUrl($args)
+    {
+        // On remplace chaque paramètre du chemin par les arguments transmis
+        $url = str_replace(array_keys($args), $args, $this->path);
+        // On supprime les ":"
+        $url = str_replace(":", "", $url);
+        return $url;
     }
     /**
      * @return string
@@ -121,5 +135,4 @@ class Route
     {
         return $this->action;
     }
-
 }

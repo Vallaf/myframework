@@ -59,5 +59,14 @@ class Router
         // Pour chaque route, on teste si elle correspond à la requête, si oui alors on renvoie cette route
         // Si aucune route ne correspond alors on renvoie une erreur
         // throw new \Exception() ...
+    public function getRoute($routeName)
+    {
+        // Si la route existe (teste sur le nom) alors on renvoie la route en question
+        if(isset($this->routes[$routeName])) {
+            return $this->routes[$routeName];
+        }
+        // Sinon on soulève une erreur
+        throw new \Exception("Cette route n'existe pas !");
+    }
 
 }
