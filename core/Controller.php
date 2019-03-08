@@ -2,6 +2,8 @@
 
 namespace Core;
 use Core\Router\Router;
+use duncan3dc\Laravel\BladeInstance;
+
 
 abstract class Controller
 {
@@ -23,6 +25,7 @@ abstract class Controller
     {
         $this->request = $request;
         $this->router = $router;
+        $this->blade = new BladeInstance($_SERVER['DOCUMENT_ROOT'] . '/../src/View/', $_SERVER['DOCUMENT_ROOT'] . '/../tmp/cache/views/');
     }
     /**
      * @param       $routeName
@@ -34,5 +37,9 @@ abstract class Controller
     {
         $route = $this->router->getRoute($routeName);
         header(sprintf("Location: %s", $route->generateUrl($args)));
+    }
+    protected function render($filename, $data = [])
+    {
+        echo $this->blade->render($filename, $data);
     }
 }

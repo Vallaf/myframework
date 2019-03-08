@@ -1,18 +1,31 @@
 <?php
 namespace App\Controller;
-use Core\Controller;
+
 class TestsController extends AppController
 {
+    /**
+     *
+     */
     public function foo()
     {
-        echo 'Hello world !';
+        return $this->render('foo');
     }
+    /**
+     * @param $bar
+     *
+     * @return
+     */
     public function bar($bar)
     {
-        echo $bar;
+        return $this->render('bar', compact('bar'));
     }
-    // A vous d'implémeter la fonction !
-    public function redirection($args){
-    $this->redirect("testsBar",['param'=>$args]);
+    /**
+     * @param $bar
+     * @throws \Exception
+     */
+    public function redirection($bar)
+    {
+        $this->redirect("testsBar", ["param" => $bar]);
     }
+
 }
